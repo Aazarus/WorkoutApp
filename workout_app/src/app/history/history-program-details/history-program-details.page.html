@@ -1,0 +1,57 @@
+<ion-header class="center" *ngIf="program && program.weeks">
+  <ion-toolbar>
+    {{getTitle()}}
+  </ion-toolbar>
+
+  <ion-grid>
+    <ion-row>
+
+      <ion-col>
+        <ion-item>
+          <ion-label>Week:</ion-label>
+          <ion-select [(ngModel)]="selectedWeekNumber" interface="popover" (ionChange)="onWeekSelected()"> 
+            <ion-select-option *ngFor="let week of program.weeks; let i = index" [value]=i>
+              {{i+1}}
+            </ion-select-option>
+          </ion-select>
+        </ion-item>
+      </ion-col>
+      
+      <ion-col>
+        <ion-item [disabled]="!selectedWeek">
+          <ion-label>Day:</ion-label>
+          <ion-select [value]="selectedDayNumber" interface="popover" (ionChange)="onDaySelected($event)"> 
+            <ion-select-option *ngFor="let day of selectedWeek.days; let i = index" [value]=i>
+              {{i+1}}
+            </ion-select-option>
+          </ion-select>
+        </ion-item>        
+      </ion-col>
+
+    </ion-row>
+  </ion-grid>
+</ion-header>
+
+<ion-content>
+    
+  <div *ngIf="!!selectedDay && (this.selectedDay.exerciseResults && this.selectedDay.exerciseResults.length > 0); else noExercise">
+    <div *ngFor="let exercise of this.selectedDay.exerciseResults">
+      <app-history-program-exercise [exercise]="exercise"></app-history-program-exercise>
+    </div>
+  </div>
+  <ng-template #noExercise>
+    <ion-card [disabled]="true">
+      <ion-header class="bold center">
+        <ion-toolbar style="padding: 0px 10px;">
+          <ion-text>No Data</ion-text>
+        </ion-toolbar>
+      </ion-header>
+      <ion-card-content class="center">
+        <ion-text>
+          Looks like you haven't completed this day yet.
+        </ion-text>
+      </ion-card-content>
+    </ion-card>
+  </ng-template>
+
+</ion-content>

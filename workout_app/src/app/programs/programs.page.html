@@ -1,0 +1,11 @@
+<ion-header>
+  <ion-toolbar>
+    <ion-title>Programs</ion-title>
+  </ion-toolbar>
+</ion-header>
+
+<ion-content>
+  <div *ngFor="let program of programs">
+    <app-program-summary [program]="program" (programSelected)="programSelected($event)"></app-program-summary>
+  </div>
+</ion-content>

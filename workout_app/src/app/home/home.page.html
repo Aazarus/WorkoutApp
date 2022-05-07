@@ -1,0 +1,127 @@
+<ion-header>
+  <ion-toolbar>
+    <ion-title>{{title}}</ion-title>
+  </ion-toolbar>
+</ion-header>
+
+<ion-content *ngIf="onboarded">
+
+  <ion-grid style="margin-top: 50px;">
+    <ion-row style="height: 20%;">          
+      <ion-col col4><app-progress></app-progress></ion-col>
+    </ion-row>
+
+    <ion-row>
+      <ion-col col8>
+        <ion-card routerLink="/tabs/next-workout" *ngIf="userService.hasProgram; else startProgram">
+          <ion-card-header class="home-icon">
+            <span>
+              <ion-icon class="icon-large" name="barbell"></ion-icon>
+            </span>
+          </ion-card-header>
+          
+          <ion-card-content>
+            <ion-text>Next Workout</ion-text>
+          </ion-card-content>
+        </ion-card>
+
+        <ng-template #startProgram>
+          <ion-card (click)="setProgram()">
+            <ion-card-header class="home-icon">
+              <span>
+                <ion-icon class="icon-large" name="barbell"></ion-icon>
+              </span>
+            </ion-card-header>
+            
+            <ion-card-content>
+              <ion-text>Start Program</ion-text>
+            </ion-card-content>
+          </ion-card>
+        </ng-template>
+      </ion-col>
+    </ion-row>
+
+    <ion-row>
+      <ion-col col4>
+        <ion-card routerLink="/tabs/programs">
+          <ion-card-header class="home-icon">
+            <span>
+              <ion-icon class="icon-large" name="clipboard"></ion-icon>
+            </span>
+          </ion-card-header>
+          
+          <ion-card-content>
+            <ion-text>Programs</ion-text>
+          </ion-card-content>
+        </ion-card>
+      </ion-col>
+      <ion-col col4>
+
+        <ion-card routerLink="/tabs/history" [disabled]="!userService.hasHistory">
+          <ion-card-header class="home-icon">
+            <span>
+              <ion-icon class="icon-large" name="ribbon"></ion-icon>
+            </span>
+          </ion-card-header>
+          
+          <ion-card-content>
+            <ion-text>History</ion-text>
+          </ion-card-content>
+        </ion-card>
+
+      </ion-col>
+    </ion-row>    
+
+    <ion-row class="container">
+
+      <div *ngIf="loadingVideos; else videoSwiper">
+        <ion-card (click)="openVideo(video)">
+          <ion-card-header>
+            <ion-text>Loading random video...</ion-text>
+          </ion-card-header>
+          
+          <ion-card-content class="container" >         
+            <ion-spinner></ion-spinner>
+          </ion-card-content>
+        </ion-card>
+      </div>
+
+      <ng-template #videoSwiper>
+        
+        <ion-card>
+          <ion-card-header>
+            <ion-text>{{ videos[selectedVideo].title }}</ion-text>
+          </ion-card-header>
+          
+          <ion-card-content class="container" (click)="openVideo(videos[selectedVideo])">    
+              <ion-img [src]="getThumbnail(videos[selectedVideo])"></ion-img>
+          </ion-card-content>
+          <ion-button (click)="previousVideo()" style="padding-bottom: 10px; padding-right: 50px;">
+            <ion-icon name="chevron-back-circle-outline"></ion-icon>
+          </ion-button>
+          <ion-button (click)="nextVideo()" style="padding-bottom: 10px;">
+            <ion-icon name="chevron-forward-circle-outline"></ion-icon>
+          </ion-button>
+        </ion-card>  
+      </ng-template>
+<!--         <swiper [config]="swiperConfig">
+          <ng-template swiperSlide *ngFor="let video of videos">
+      
+            <ion-card (click)="openVideo(video)">
+              <ion-card-header>
+                <ion-text>{{ video.title }}</ion-text>
+              </ion-card-header>
+              
+              <ion-card-content class="container" >         
+                  <ion-img [src]="getThumbnail(video)"></ion-img>
+              </ion-card-content>
+            </ion-card>      
+          </ng-template>
+        </swiper>
+      </ng-template> -->
+
+    </ion-row>
+
+  </ion-grid>
+  
+</ion-content>

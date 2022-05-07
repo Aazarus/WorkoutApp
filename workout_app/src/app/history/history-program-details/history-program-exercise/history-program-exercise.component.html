@@ -1,0 +1,40 @@
+<ion-card [disabled]="true" *ngIf="exercise">
+  <ion-header>
+    <ion-toolbar>
+      <div>
+        <ion-text class="bold">{{exercise.title}}</ion-text>
+      </div>
+      <ion-text class="right-align">{{getBodyPartTargeted()}}</ion-text>
+    </ion-toolbar>
+  </ion-header>
+  <ion-card-content class="center">
+    <ion-list *ngIf="exercise.expectedReps.length > 0">
+
+      <ion-item-group *ngFor='let set of sets'>
+        <ion-item>
+          <ion-grid>            
+            <ion-row>
+                <ion-col>
+                  <div>
+                    <ion-label position="stacked">Reps: {{ exercise.expectedReps[set] ? exercise.expectedReps[set] : exercise.expectedReps[0] }}</ion-label>
+                    <ion-input [ngModel]="exercise.reps[set]" type="text"></ion-input>
+                  </div>
+                </ion-col> 
+                <ion-col>
+                  <div>
+                    <ion-label position="stacked">Weight</ion-label>
+                    <ion-input [ngModel]="exercise.weight[set]" type="text"></ion-input>
+                  </div>
+                </ion-col>
+            </ion-row>
+          </ion-grid>
+        </ion-item>
+      </ion-item-group>
+      
+      <ion-item>
+        <ion-textarea [ngModel]="exercise.notes" name="notes" placeholder="No Notes were made."></ion-textarea>
+      </ion-item>
+
+    </ion-list>
+  </ion-card-content>
+</ion-card>

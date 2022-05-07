@@ -1,0 +1,53 @@
+<ion-card *ngIf="exercise">
+  <ion-header>
+    <ion-toolbar>
+      <div>
+        <ion-text class="bold">{{exercise.title}}</ion-text>
+      </div>
+      <ion-text class="right-align">{{getBodyPartTargeted()}}</ion-text>
+    </ion-toolbar>
+  </ion-header>
+  <ion-card-content>
+    <ion-list *ngIf="exercise && exercise.sets > 0">
+      <ion-item-group *ngFor='let set of sets'>
+        <ion-item [disabled]="isCompleted">
+          <ion-grid>            
+            <ion-row>
+                <ion-col>
+                  <div>
+                    <ion-label position="stacked">Reps: {{ exercise.reps[set] ? exercise.reps[set] : exercise.reps[0] }}</ion-label>
+                    <ion-input [(ngModel)]="exerciseResult.reps[set]" type="number"></ion-input>
+                  </div>
+                </ion-col> 
+                <ion-col>
+                  <div>
+                    <ion-label position="stacked">Weight: {{userService.weight}}</ion-label>
+                    <ion-input [(ngModel)]="exerciseResult.weight[set]" type="text"></ion-input>
+                  </div>
+                </ion-col>
+            </ion-row>
+          </ion-grid>
+        </ion-item>
+
+      </ion-item-group>
+      
+      <ion-item [disabled]="isCompleted">
+        <ion-textarea [(ngModel)]="exerciseResult.notes" name="notes" placeholder="Enter any notes here..."></ion-textarea>
+      </ion-item>
+
+      <ion-item class="right-align">        
+        <ion-button (click)="completedExercise()" style="width: 90px;"> 
+          <div *ngIf="!isCompleted">
+            Complete
+          </div>
+          <div *ngIf="isCompleted">
+            Edit
+          </div>
+        </ion-button>
+      </ion-item>
+
+    </ion-list>
+
+  </ion-card-content>
+
+</ion-card>

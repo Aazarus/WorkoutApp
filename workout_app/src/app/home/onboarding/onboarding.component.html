@@ -1,0 +1,50 @@
+<ion-header>
+  <ion-toolbar>
+    <ion-title>Workout App</ion-title>
+  </ion-toolbar>
+</ion-header>
+
+<ion-content>
+
+  <form [formGroup]="ionicForm" (ngSubmit)="onboard()" (keydown.enter)="$event.preventDefault()">
+    <ion-grid>
+      <ion-row color="primary" justify-content-center>
+        <ion-col align-self-center size-md="6" size-lg="5" size-xs="12">
+          <div text-center>
+            <h3>Create your account!</h3>
+          </div>
+          <div padding>
+            <ion-item>
+              <ion-label position="floating">Enter your name</ion-label>
+              <ion-input formControlName="name" type="text" (ionChange)="onNameChange($event)" required></ion-input>
+            </ion-item>
+            <ion-item>
+              <ion-label>Dark theme</ion-label>
+              <ion-toggle formControlName="darkTheme" (ionChange)="onDarkThemeChange($event)"></ion-toggle>
+            </ion-item>
+            <ion-item>
+              <ion-label>Weight</ion-label>
+              <ion-select interface="popover" formControlName="weight" required>
+                <ion-select-option value="KG">KG</ion-select-option>
+                <ion-select-option value="LB">LB</ion-select-option>
+              </ion-select>
+            </ion-item>
+                     
+          </div>
+          <div padding>
+            <ion-button size="large" type="submit" expand="block" [disabled]="ionicForm.invalid || isFormSubmitted">
+              <div *ngIf="!isFormSubmitted">
+                Register
+              </div>
+              <div *ngIf="isFormSubmitted">
+                <ion-spinner></ion-spinner>
+              </div>
+            </ion-button>
+          </div>
+        </ion-col>
+      </ion-row>
+    </ion-grid>
+  </form>
+
+</ion-content>
+

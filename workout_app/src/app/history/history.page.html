@@ -1,0 +1,44 @@
+<ion-header>
+  <ion-toolbar>
+    <ion-title>History</ion-title>
+  </ion-toolbar>
+</ion-header>
+
+<ion-content>
+  <div *ngIf="userService && userService.hasHistory">
+    <ion-header>
+      <ion-toolbar>
+        <ion-title>Current Program</ion-title>
+      </ion-toolbar>
+    </ion-header>
+    <div *ngIf="!!this.userService.currentProgram">
+      <app-program-summary [program]="this.userService.currentProgram" (programSelected)="programSelected($event)"></app-program-summary>
+    </div>
+
+    <ion-header>
+      <ion-toolbar>
+        <ion-title>Previous Programs</ion-title>
+      </ion-toolbar>
+    </ion-header>
+    <div *ngIf="!!this.userService.previousPrograms && this.userService.previousPrograms.length > 0">
+      <div *ngFor="let program of this.userService.previousPrograms">
+        <app-program-summary [program]="program" (programSelected)="programSelected($event)"></app-program-summary>
+      </div>
+    </div>
+  </div>
+  <ng-template #noHistory>
+    <ion-card class="center">
+      <ion-card-header>
+        <ion-title>
+          No History   
+        </ion-title>
+      </ion-card-header>
+      
+      <ion-card-content>
+        <ion-text>
+          Unfortunately, you do not have a running program and haven't completed one either.
+        </ion-text>
+      </ion-card-content>
+    </ion-card>
+  </ng-template>
+</ion-content>

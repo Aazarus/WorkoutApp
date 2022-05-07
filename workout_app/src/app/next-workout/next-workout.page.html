@@ -1,0 +1,39 @@
+<ion-header>
+  <ion-toolbar>
+    <ion-title>{{title}}</ion-title>
+  </ion-toolbar>
+</ion-header>
+
+<ion-content *ngIf="!!exercises && exercises.length > 0">
+  <div *ngIf="!isCompleted">
+    <div *ngFor="let exercise of exercises">
+      <app-exercise [exercise]="exercise" (exerciseCompleted)="exerciseCompleted($event)"></app-exercise>
+    </div>
+  </div>
+  
+  <ion-item class="right-align" style="margin-bottom: 15px; margin-right: 15px;" *ngIf="!isCompleted">        
+    <ion-button (click)="completeDay()">
+        Complete
+    </ion-button>
+  </ion-item>
+  <div *ngIf="displayPostWorkout">
+    <ion-card *ngIf="displayCompletedProgram; else completedDay">
+      <ion-card-header>
+        You've completed to Program. Congratulations.
+      </ion-card-header>
+      <ion-card-content class="center">
+        <ion-button (click)="loadNextWorkout()">Do another run?</ion-button>
+      </ion-card-content>
+    </ion-card>
+    <ng-template #completedDay>
+    <ion-card>
+      <ion-card-header>
+        Nice one. You got after it!
+      </ion-card-header>
+      <ion-card-content>
+        <ion-button (click)="loadNextWorkout()">Next Workout</ion-button>
+      </ion-card-content>
+    </ion-card>
+    </ng-template>
+  </div>
+</ion-content>

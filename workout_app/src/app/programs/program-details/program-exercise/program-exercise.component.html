@@ -1,0 +1,21 @@
+<ion-card *ngIf="exercise">
+
+  <ion-header>
+    <ion-toolbar>
+      <div>
+        <ion-text class="bold">{{exercise.title}}</ion-text>
+      </div>
+      <ion-text class="right-align">{{getBodyPartTargeted()}}</ion-text>
+    </ion-toolbar>
+  </ion-header>
+  <ion-label style="padding-left: 10px;" position="stacked"> Sets: {{ sets.length }}</ion-label>
+  <ion-card-content >
+    <ion-list>
+      <ion-item *ngFor='let set of sets; let i = index' lines="inset">
+          <ion-label class="setsLabel">Set {{i+1}}:</ion-label>
+          <ion-label class="center">{{ exercise.reps[set] ? exercise.reps[set] : exercise.reps[0] }} Reps</ion-label>
+      </ion-item>
+    </ion-list>
+  </ion-card-content>
+
+</ion-card>

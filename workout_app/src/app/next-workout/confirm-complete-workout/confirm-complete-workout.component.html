@@ -1,0 +1,23 @@
+<ion-card>
+  <ion-card-header class="center">
+      Complete Current Day?
+  </ion-card-header>
+
+  <ion-card-content>
+    <ion-list>
+      <ion-item>
+        <ion-text>
+          Are you sure you want to complete the day?
+        </ion-text>
+      </ion-item>
+        <ion-item>
+          <small>
+            You have unfinished exercises.
+            They will default to 0 for reps and weight.
+          </small>
+        </ion-item>
+        <ion-button class="left-align" color="medium" (click)="cancel()">Cancel</ion-button>
+        <ion-button class="right-align" color="primary" (click)="complete()">Yes</ion-button>
+    </ion-list>
+  </ion-card-content>
+</ion-card>

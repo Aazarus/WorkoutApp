@@ -1,0 +1,19 @@
+<ion-card class="center" [disabled]="!userService.hasProgram">
+  <ion-card-header>
+    <span *ngIf="userService.hasProgram; else noProgram">
+      {{userService.currentProgram?.title ?? ''}} Progress:
+    </span>
+    <ng-template #noProgram>
+      <span>
+        Start a program today.
+      </span>
+    </ng-template>
+
+  </ion-card-header>
+  
+  <ion-card-content>
+    <ion-progress-bar 
+      [value]="progress"
+    ></ion-progress-bar>
+  </ion-card-content>
+</ion-card>
